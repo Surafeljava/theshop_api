@@ -1,0 +1,8 @@
+# Node installed modules file
+node_modules
+
+# Output file
+dist
+
+# Environment File
+.env
