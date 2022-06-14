@@ -1,27 +1,14 @@
 import express, {Express, Request, Response} from 'express';
-import {ApolloServer, gql} from 'apollo-server-express';
+import {ApolloServer} from 'apollo-server-express';
 import dotenv from 'dotenv';
 dotenv.config();
+
+const mongoose = require('mongoose');
 
 const resolvers = require('./src/resolvers');
 const typeDefs = require('./src/typeDefs');
 
 const port = process.env.PORT;
-
-// const typeDefs = gql`
-//     type Query{
-//         hello: String
-//     }
-// `;
-
-// const resolvers = {
-//     Query: {
-//         hello: () => {
-//             return 'Hello World';
-//         }
-//     }
-// }
-
 
 async function startServer() {
     const app: Express = express();
@@ -38,6 +25,9 @@ async function startServer() {
             message: "Hello World"
         });
     });
+
+    await mongoose.connect('mongodb://localhost:27017/post_db');
+    console.log('Mongodb Connected!'); 
 
     app.listen(port, () => {
         console.log(`Server Running on port ${port}`);
